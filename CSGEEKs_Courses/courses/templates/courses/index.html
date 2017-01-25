@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="{% static 'courses/static/ico/favicon.png'%}">
+
+    <title>XYZ</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'courses/static/css/bootstrap.css'%}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'courses/static/css/soon.css'%}" rel="stylesheet">
+    
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{% static 'courses/static/css/component.css'%}" />
+
+
+  </head>
+  <!-- START BODY -->
+  <body class="nomobile">
+
+
+    <!-- START HEADER -->
+    <section id="header">
+
+        <div class="container" style="width: 1500px; padding-top: 50px;" data-animated="GoIn">
+            <header>
+            <div align="right">
+              <nav class="cl-effect-1">
+                <a href="#" style="text-decoration: none;">courses</a>
+                <a href="#" style="text-decoration: none;">sign up</a>
+              </nav>
+
+            </div >
+                <div style="padding-top: 100px;">
+                <!-- HEADLINE -->
+                <img data-animated="GoIn" src="{% static 'courses/static/img/logo.png'%}" width="200" height="117">
+                <h1 data-animated="GoIn"><b>XYZ</b> -Learn By Making</h1>
+                </div>
+            </header>
+            
+			</div>
+            
+        </div>
+        <!-- LAYER OVER THE SLIDER TO MAKE THE WHITE TEXTE READABLE -->
+        <div id="layer"></div>
+        <!-- END LAYER -->
+        <!-- START SLIDER -->
+        <div id="slider" class="rev_slider">
+            <ul>
+              <li data-transition="slideleft" data-slotamount="1" data-thumb="{% static 'courses/static/img/slider/1.JPG'%}">
+                <img src="{% static 'courses/static/img/slider/1.JPG'%}">
+              </li>
+              <li data-transition="slideleft" data-slotamount="1" data-thumb="{% static 'courses/static/img/slider/2.jpg'%}">
+                <img src="{% static 'courses/static/img/slider/2.jpg'%}">
+              </li>
+              <li data-transition="slideleft" data-slotamount="1" data-thumb="{% static 'courses/static/img/slider/3.JPG'%}">
+                <img src="{% static 'courses/static/img/slider/3.JPG'%}">
+              </li>
+              <li data-transition="slideleft" data-slotamount="1" data-thumb="{% static 'courses/static/img/slider/4.jpg'%}">
+                <img src="{% static 'courses/static/img/slider/4.jpg'%}">
+              </li>
+              <li data-transition="slideleft" data-slotamount="1" data-thumb="{% static 'courses/static/img/slider/5.JPG'%}">
+                <img src="{% static 'courses/static/img/slider/5.JPG'%}">
+              </li>
+              <li data-transition="slideleft" data-slotamount="1" data-thumb="{% static 'courses/static/img/slider/6.jpg'%}">
+                <img src="{% static 'courses/static/img/slider/6.jpg'%}">
+              </li>
+            </ul>
+        </div>
+        <!-- END SLIDER -->
+    </section>
+    <!-- END HEADER -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{% static 'courses/static/js/jquery.min.js'%}"></script>
+	  <script type="text/javascript" src="{% static 'courses/static/js/modernizr.custom.js'%}"></script>
+    <script src="{% static 'courses/static/js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'courses/static/js/soon/plugins.js'%}"></script>
+    <script src="{% static 'courses/static/js/soon/jquery.themepunch.revolution.min.js'%}"></script>
+    <script src="{% static 'courses/static/js/soon/custom.js'%}"></script>
+  </body>
+  <!-- END BODY -->
+</html>
