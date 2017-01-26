@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -34,8 +35,8 @@
             <header>
             <div align="right">
               <nav class="cl-effect-1">
-                <a href="#" style="text-decoration: none;">courses</a>
-                <a href="#" style="text-decoration: none;">sign up</a>
+                <a href="{% url 'courses:index'%}" style="text-decoration: none;">courses</a>
+                <a href="{% url 'courses:form'%}" style="text-decoration: none;">log in</a>
               </nav>
 
             </div >
