@@ -8,11 +8,18 @@ from django.urls import reverse
 
 # Create your views here.
 def index (request):
-	return HttpResponse("Courses index")
+	li = Course.objects.all()
+	context={'courses':li}
+
+	return render(request, "courses/courses.html", context)
 
 def getCourseAbout (request, course_id):
-	name = Course.objects.get(pk=course_id).title
-	return HttpResponse("coure "+name+" about")
+	data =checkAuth()
+	if(data[0]):
+		name = Course.objects.get(pk=course_id).title
+		return HttpResponse("Welcome to  "+name+" Course  "+data[1])
+	else:
+		return render(request, 'courses/form.html')
 
 def getCourseVideos (request,id):
 	pass
@@ -24,7 +31,9 @@ def getCourseMembers (request,id):
 	pass
 
 def checkAuth ():
-	pass
+	for i in Member.objects.all():
+		if i.logged_in: return (True,i.first_name)
+		else: return (False,)
 
 def form(request):
 	return render(request, 'courses/form.html')
@@ -45,6 +54,12 @@ def logIn(request):
 			return HttpResponseRedirect(reverse('courses:index'))
 		else: 
 			return render(request, "courses/form.html", context)
+
+def logOut(request):
+	for i in Member.objects.all():
+		i.logged_in=False
+		i.save()
+	return render(request, "courses/index.html")
 
 def signUp(request):
 	fname = request.POST['firstname']

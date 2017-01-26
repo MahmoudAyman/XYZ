@@ -17,6 +17,8 @@ class Member(models.Model):
 
 class Course(models.Model):
     title = models.CharField(max_length=200)
+    desc = models.CharField(max_length=400, default="")
+    img = models.CharField(max_length=200, default="")
     members = models.ManyToManyField(Member)
 
     def __str__ (self):
