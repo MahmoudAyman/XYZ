@@ -43,11 +43,8 @@ body {
 	margin: 0;
 	font-weight: 400;
 	color: #fff;
-	stroke: black;
-	stroke-width: 2em;
 	text-align: left;
-
-
+	-webkit-text-stroke: 2px black;
 }
 
 .container > header span {

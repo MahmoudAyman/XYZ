@@ -17,7 +17,11 @@ def getCourseAbout (request, course_id):
 	data =checkAuth()
 	if(data[0]):
 		name = Course.objects.get(pk=course_id).title
-		return HttpResponse("Welcome to  "+name+" Course  "+data[1])
+		Posts=Course.objects.get(pk=course_id).post_set.all()
+		Notis=Course.objects.get(pk=course_id).notification_set.all()
+		coms=Course.objects.get(pk=course_id).comment_set.all()
+		context={'post':Posts, 'not':Notis,'com':coms,'cid':course_id}
+		return render(request, "courses/about.html",context)
 	else:
 		return render(request, 'courses/form.html')
 
@@ -78,5 +82,14 @@ def signUp(request):
 
 
 	return HttpResponse("signup")
+
+def postComment(request, course_id):
+	c=Course.objects.get(pk=course_id)
+	com=Comment(content=request.POST['text'], course=c)
+	c.save()
+	com.save()
+
+	return HttpResponseRedirect(reverse('courses:about',kwargs={'course_id':course_id}))
+
 
 
