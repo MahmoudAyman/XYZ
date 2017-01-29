@@ -14,8 +14,8 @@ def index (request):
 	return render(request, "courses/courses.html", context)
 
 def getCourseAbout (request, course_id):
-	data =checkAuth()
-	if(data[0]):
+	data =checkAuth(request)
+	if(data!=False):
 		name = Course.objects.get(pk=course_id).title
 		Posts=Course.objects.get(pk=course_id).post_set.all()
 		Notis=Course.objects.get(pk=course_id).notification_set.all()
@@ -34,10 +34,12 @@ def getCourseAssig (request,id):
 def getCourseMembers (request,id):
 	pass
 
-def checkAuth ():
-	for i in Member.objects.all():
-		if i.logged_in: return (True,i.first_name)
-		else: return (False,)
+def checkAuth (request):
+	try:
+		m_id=request.session['member_id']
+	except KeyError:
+		return False
+	return m_id
 
 def form(request):
 	return render(request, 'courses/form.html')
@@ -55,15 +57,23 @@ def logIn(request):
 		if (usr.pwd == pwd):
 			usr.logged_in=True
 			usr.save()
+			request.session['member_id'] = usr.id
+			request.session.set_expiry(0)
 			return HttpResponseRedirect(reverse('courses:index'))
 		else: 
 			return render(request, "courses/form.html", context)
 
 def logOut(request):
-	for i in Member.objects.all():
-		i.logged_in=False
-		i.save()
-	return render(request, "courses/index.html")
+	try:
+		m_id=request.session['member_id']
+	except KeyError:
+		pass
+	else:
+		m= Member.objects.get(pk=m_id)
+		m.logged_in=False
+		m.save()
+		del request.session['member_id']
+		return render(request, "courses/index.html")
 
 def signUp(request):
 	fname = request.POST['firstname']
@@ -85,7 +95,9 @@ def signUp(request):
 
 def postComment(request, course_id):
 	c=Course.objects.get(pk=course_id)
-	com=Comment(content=request.POST['text'], course=c)
+	m=Member.objects.get(pk=request.session['member_id'])
+	name=m.first_name+" "+m.last_name
+	com=Comment(content=request.POST['text'],title=name, course=c)
 	c.save()
 	com.save()
 
