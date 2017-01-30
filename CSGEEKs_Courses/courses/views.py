@@ -81,14 +81,16 @@ def signUp(request):
 	mail = request.POST['emailsignup']
 	password = request.POST['passwordsignup']
 	pwd2 = request.POST['passwordsignup_confirm']
-	u_img = request.POST['img']
+	u_img = request.FILES['img']
 	context={}
 
 	if (password != pwd2):
 		context['wrong']=True
 		return render(request, "courses/form.html", context)
 	else:
-		mem = Member.objects.create(first_name=fname, last_name=lname, email=mail, pwd=password, logged_in=True, img=u_img)
+		mem = Member.objects.create(first_name=fname, last_name=lname, email=mail, pwd=password, logged_in=True,)
+		mem.img=(u_img)
+		mem.save()
 		return HttpResponseRedirect(reverse('courses:index'))
 		#need to login
 def postComment(request, course_id):
