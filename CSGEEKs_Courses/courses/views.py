@@ -104,4 +104,14 @@ def postComment(request, course_id):
 	return HttpResponseRedirect(reverse('courses:about',kwargs={'course_id':course_id}))
 
 
+def getDashboard(request):
+	m_course =  Member.objects.get(pk=request.session['member_id']).course_set.all()
+	name =  Member.objects.get(pk=request.session['member_id'])
+	cont = {'courses':m_course ,'member':name}
+	return render(request, "courses/dashboard.html",cont)
+
+
+		
+
+
 
