@@ -64,7 +64,7 @@
                         </div>
 
                         <div id="register" class="animate form">
-                            <form  action="{% url 'courses:signup'%}" autocomplete="on" method="POST"> 
+                            <form  action="{% url 'courses:signup'%}" autocomplete="on" method="POST" enctype="multipart/form-data"> 
                                 {% csrf_token %}
                                 <h1> Sign up </h1> 
                                 <p> 
@@ -86,6 +86,10 @@
                                 <p> 
                                     <label for="passwordsignup_confirm" class="youpasswd" data-icon="p">Please confirm your password </label>
                                     <input id="passwordsignup_confirm" name="passwordsignup_confirm" required="required" type="password" placeholder="eg. X8df!90EO"/>
+                                </p>
+                                <p> 
+                                    <label for="img" class="youpasswd" data-icon="i">Upload your img </label>
+                                    <input id="img" name="img" required="required" type="file" placeholder="...."/>
                                 </p>
                                 <p class="signin button"> 
 									<input type="submit" value="Sign up"/> 
