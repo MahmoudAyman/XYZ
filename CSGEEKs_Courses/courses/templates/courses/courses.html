@@ -42,14 +42,16 @@
 									<input placeholder="Search" type="search" class="gn-search">
 									<a class="gn-icon gn-icon-search"><span>Search</span></a>
 								</li>
+								<li><a href="{% url 'courses:dashboard'%}" class="gn-icon gn-icon-help">Dashboard</a></li>
 								<li><a class="gn-icon gn-icon-help">Help</a></li>
 								<li><a href="/courses/logout/" class="gn-icon gn-icon-cog">Log Out</a></li>
 							</ul>
 						</div><!-- /gn-scroller -->
 					</nav>
 				</li>
-				<li><a href="">Courses</a></li>
-				<li><a href="dashboard/">XYZ</a></li>
+				<li><a href="{% url 'courses:index'%}">Courses</a></li>
+				<li><a href="{% url 'home'%}">XYZ</a></li>
+				<li><img src="{{MEDIA_URL}}upload/{{member.id}}-thum.png"></l>
 			</ul>
 			<header style=" background-color: #f5f5f5; background-image: url({% static 'courses/static/img/s.jpg'%}); background-repeat: no-repeat; background-position: center;">
 				<h1>Start learning, now! </h1>	

@@ -27,11 +27,20 @@ def getCourseAbout (request, course_id):
 	else:
 		return render(request, 'courses/form.html')
 
-def getCourseVideos (request,id):
-	pass
+def getCourseware(request,course_id,video_id):
+	videos=Course.objects.get(pk=course_id).video_set.all()
+	current=Video.objects.get(pk=video_id)
+	coms=Video.objects.get(pk=video_id).comment_set.all()
+	context={'videos':videos, 'current':current, 'cid':course_id, 'vid':current, 'coms':coms}
 
-def getCourseAssig (request,id):
-	pass
+	return render(request, "courses/courseware.html",context)
+
+def getCourseAssig (request,course_id,agn_id):
+	assigns=Course.objects.get(pk=course_id).assignment_set.all()
+	current=Assignment.objects.get(pk=agn_id)
+	context={'assigns':assigns, 'current':current, 'cid':course_id, 'aid':agn_id}
+
+	return render(request, "courses/assignments.html",context)
 
 def getCourseMembers (request,id):
 	pass
@@ -114,14 +123,6 @@ def postComment(request, course_id, video_id):
 
 	return HttpResponseRedirect(reverse('courses:ware',kwargs={'course_id':course_id, 'video_id':video_id}))
 
-def getCourseware(request,course_id,video_id):
-	videos=Course.objects.get(pk=course_id).video_set.all()
-	current=Video.objects.get(pk=video_id)
-	coms=Video.objects.get(pk=video_id).comment_set.all()
-	context={'videos':videos, 'current':current, 'cid':course_id, 'vid':current, 'coms':coms}
-
-	return render(request, "courses/courseware.html",context)
-
 def getDashboard(request):
 	data =checkAuth(request)
 	if(data!=False):
@@ -130,6 +131,14 @@ def getDashboard(request):
 		cont = {'courses':m_course ,'member':name}
 		return render(request, "courses/dashboard.html",cont)
 	else:return render(request, 'courses/form.html')
+
+def uploadFile(request, course_id, agn_id):
+	data=request.FILES['file']
+	member=Member.objects.get(pk=request.session['member_id'])
+	assign=Assignment.objects.get(pk=agn_id)
+	File.objects.create(data=data, member=member, assign=assign)
+
+	return HttpResponseRedirect(reverse('courses:agn',kwargs={'course_id':course_id, 'agn_id':agn_id}))
 
 
 
