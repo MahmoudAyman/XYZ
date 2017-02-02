@@ -67,7 +67,7 @@ def logOut(request):
 	try:
 		m_id=request.session['member_id']
 	except KeyError:
-		return render(request, "courses/index.html")
+		pass
 	else:
 		m= Member.objects.get(pk=m_id)
 		m.logged_in=False
@@ -81,18 +81,18 @@ def signUp(request):
 	mail = request.POST['emailsignup']
 	password = request.POST['passwordsignup']
 	pwd2 = request.POST['passwordsignup_confirm']
-	u_img = request.FILES['img']
 	context={}
 
 	if (password != pwd2):
 		context['wrong']=True
 		return render(request, "courses/form.html", context)
 	else:
-		mem = Member.objects.create(first_name=fname, last_name=lname, email=mail, pwd=password, logged_in=True,)
-		mem.img=(u_img)
-		mem.save()
+		mem = Member.objects.create(first_name=fname, last_name=lname, email=mail, pwd=password, logged_in=True)
 		return HttpResponseRedirect(reverse('courses:index'))
-		#need to login
+
+
+	return HttpResponse("signup")
+
 def postComment(request, course_id):
 	c=Course.objects.get(pk=course_id)
 	m=Member.objects.get(pk=request.session['member_id'])
@@ -102,6 +102,16 @@ def postComment(request, course_id):
 	com.save()
 
 	return HttpResponseRedirect(reverse('courses:about',kwargs={'course_id':course_id}))
+
+
+def getDashboard(request):
+	m_course =  Member.objects.get(pk=request.session['member_id']).course_set.all()
+	name =  Member.objects.get(pk=request.session['member_id'])
+	cont = {'courses':m_course ,'member':name}
+	return render(request, "courses/dashboard.html",cont)
+
+
+		
 
 
 
