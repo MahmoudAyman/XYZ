@@ -114,6 +114,14 @@ def getCourseware(request,course_id,video_id):
 
 	return render(request, "courses/courseware.html",context)
 
+def getDashboard(request):
+	data =checkAuth(request)
+	if(data!=False):
+		m_course =  Member.objects.get(pk=request.session['member_id']).course_set.all()
+		name =  Member.objects.get(pk=request.session['member_id'])
+		cont = {'courses':m_course ,'member':name}
+		return render(request, "courses/dashboard.html",cont)
+	else:return render(request, 'courses/form.html')
 
 
 
