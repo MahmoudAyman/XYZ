@@ -71,12 +71,26 @@ class Notification(models.Model):
     def __str__(self):
         return str(self.id)
 
-class Comment(models.Model):
+
+class Video(models.Model):
     title=models.CharField(max_length=200, default="")
+    url=models.CharField(max_length=400, default="")
     content=models.TextField()
     date=models.DateField(auto_now_add=True)
+    by = models.CharField(max_length=200, default="")
     course=models.ForeignKey(Course, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.id)
+
+class Comment(models.Model):
+    title=models.CharField(max_length=200, default="")
+    content=models.TextField()
+    date=models.DateField(auto_now_add=True)
+    video=models.ForeignKey(Video, on_delete=models.CASCADE, default="")
+
+    def __str__(self):
+        return str(self.id)
+
+
         

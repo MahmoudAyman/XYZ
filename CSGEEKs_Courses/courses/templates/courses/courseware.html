@@ -64,10 +64,10 @@
 					<span class="link-copy"></span>
 					<nav class="menu menu--ceres">
 						<ul class="menu__list">
-							<li class="menu__item menu__item--current"><a href="#" class="menu__link" style="pointer-events: auto;">About</a></li>
-							<li class="menu__item"><a href="./courseware/1/"  style="pointer-events: auto;">Courseware</a></li>
-							<li class="menu__item"><a href="https://www.google.com" class="menu__link" style="pointer-events: auto;">Assignments</a></li>
-							<li class="menu__item"><a href="#" class="menu__link" style="pointer-events: auto;">Members</a></li>
+							<li class="menu__item menu__item--current"><a href="#" class="menu__link">About</a></li>
+							<li class="menu__item"><a href="#" class="menu__link">Courseware</a></li>
+							<li class="menu__item"><a href="#" class="menu__link">Assignments</a></li>
+							<li class="menu__item"><a href="#" class="menu__link">Members</a></li>
 						</ul>
 					</nav>
 				</section>
@@ -80,40 +80,52 @@
 			            <div  class="col-lg-8" style="background-color:#f5f5f5">
 
 			                <!-- Blog Post -->
-			                {% for i in post %}
 			                <!-- Title -->
-			                <h1>{{i.title}}</h1>
+			                <h1>{{current.title}}</h1>
 
 			                <!-- Author -->
 			                <p class="lead">
-			                    by <font color="black" size="5em">{{i.by}}</font>
+			                    by <font color="black" size="5em">{{current.by}}</font>
 			                </p>
 
 			                <hr>
 
 			                <!-- Date/Time -->
-			                <p><span class="glyphicon glyphicon-time"></span> Posted on {{i.date}}</p>
+			                <p><span class="glyphicon glyphicon-time"></span> Posted on {{current.date}}</p>
 
 			                <hr>
 
 			                <!-- Preview Image -->
-			                <img class="img-responsive" src="http://placehold.it/900x300" alt="">
+			                <iframe width="750" height="600" src="https://www.youtube.com/embed/XGSy3_Czz8k">
+							</iframe>
 
 			                <hr>
 
 			                <!-- Post Content -->
-			                <p class="lead">{{i.content}}</p>
+			                <p class="lead">{{current.content}}</p>
 
 			                <hr>
-			                {%endfor%}
-			                
+			                <!-- Blog Comments -->
+
+			                <!-- Comments Form -->
+			                <div class="well">
+			                    <h4>Leave a Comment:</h4>
+
+			                    <form action="{% url 'courses:comment' cid vid%}" role="form" method="POST">
+			                    {% csrf_token %}
+			                        <div class="form-group">
+			                            <textarea name="text" class="form-control" rows="3"></textarea>
+			                        </div>
+			                        <button type="submit" class="btn btn-primary">Submit</button>
+			                    </form>
+			                </div>
 
 			                <hr>
 
 			                <!-- Posted Comments -->
-
+			                {% for i in coms%}
 			                <!-- Comment -->
-			                <!-- <div class="media">
+			                <div class="media">
 			                    <a class="pull-left" href="#">
 			                        <img class="media-object" src="http://placehold.it/64x64" alt="">
 			                    </a>
@@ -123,7 +135,8 @@
 			                        </h4>
 			                        {{i.content}}
 			                    </div>
-			                </div> -->
+			                </div>
+			                {%endfor%}
 
 			            </div>
 			            
@@ -131,10 +144,10 @@
 			            <div class="col-md-4">
 			                
 			                <div class="well">
-			                    <h4>Notifications</h4>
-			                    {%for i in not%}
-			                    <p>{{i.content}}</p>
-			                    <h5>On{{i.date}}</h5>
+			                    <h4>Videos</h4>
+			                    {%for i in videos%}
+			                    <h5>{{i.title}}</h5>
+			                    <p>On{{i.date}}</p>
 			                    <br>
 			                    {%endfor%}
 			                </div>

@@ -19,8 +19,8 @@ def getCourseAbout (request, course_id):
 		name = Course.objects.get(pk=course_id).title
 		Posts=Course.objects.get(pk=course_id).post_set.all()
 		Notis=Course.objects.get(pk=course_id).notification_set.all()
-		coms=Course.objects.get(pk=course_id).comment_set.all()
-		context={'post':Posts, 'not':Notis,'com':coms,'cid':course_id}
+		# coms=Course.objects.get(pk=course_id).comment_set.all()
+		context={'post':Posts, 'not':Notis,'cid':course_id}
 		return render(request, "courses/about.html",context)
 	else:
 		return render(request, 'courses/form.html')
@@ -67,7 +67,7 @@ def logOut(request):
 	try:
 		m_id=request.session['member_id']
 	except KeyError:
-		pass
+		return render(request, "courses/index.html")
 	else:
 		m= Member.objects.get(pk=m_id)
 		m.logged_in=False
@@ -81,37 +81,39 @@ def signUp(request):
 	mail = request.POST['emailsignup']
 	password = request.POST['passwordsignup']
 	pwd2 = request.POST['passwordsignup_confirm']
+	u_img = request.FILES['img']
 	context={}
 
 	if (password != pwd2):
 		context['wrong']=True
 		return render(request, "courses/form.html", context)
 	else:
-		mem = Member.objects.create(first_name=fname, last_name=lname, email=mail, pwd=password, logged_in=True)
+		mem = Member.objects.create(first_name=fname, last_name=lname, email=mail, pwd=password, logged_in=True,)
+		mem.img=(u_img)
+		mem.save()
 		return HttpResponseRedirect(reverse('courses:index'))
+		#need to login
 
-
-	return HttpResponse("signup")
-
-def postComment(request, course_id):
+def postComment(request, course_id, video_id):
 	c=Course.objects.get(pk=course_id)
+	v=Video.objects.get(pk=video_id)
 	m=Member.objects.get(pk=request.session['member_id'])
 	name=m.first_name+" "+m.last_name
-	com=Comment(content=request.POST['text'],title=name, course=c)
+	com=Comment(content=request.POST['text'],title=name,video=v)
 	c.save()
+	v.save()
 	com.save()
 
-	return HttpResponseRedirect(reverse('courses:about',kwargs={'course_id':course_id}))
+	return HttpResponseRedirect(reverse('courses:ware',kwargs={'course_id':course_id, 'video_id':video_id}))
 
+def getCourseware(request,course_id,video_id):
+	videos=Course.objects.get(pk=course_id).video_set.all()
+	current=Video.objects.get(pk=video_id)
+	coms=Video.objects.get(pk=video_id).comment_set.all()
+	context={'videos':videos, 'current':current, 'cid':course_id, 'vid':current, 'coms':coms}
 
-def getDashboard(request):
-	m_course =  Member.objects.get(pk=request.session['member_id']).course_set.all()
-	name =  Member.objects.get(pk=request.session['member_id'])
-	cont = {'courses':m_course ,'member':name}
-	return render(request, "courses/dashboard.html",cont)
+	return render(request, "courses/courseware.html",context)
 
-
-		
 
 
 
