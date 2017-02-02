@@ -14,7 +14,7 @@
 
  -->	        <link href="{% static 'courses/static/vendor/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
 
- 		<link rel="stylesheet" type="text/css" href="{% static 'courses/static/css/demo2.css'%}" />
+ 		<link rel="stylesheet" type="text/css" href="{% static 'courses/static/css/demo4.css'%}" />
 		<link rel="stylesheet" type="text/css" href="{% static 'courses/static/css/component2.css'%}" />
 
 		<link href="{% static 'courses/static/vendor/font-awesome/css/font-awesome.min.css'%}" rel="stylesheet" type="text/css">
@@ -34,8 +34,8 @@
 		<script src="{% static 'courses/static/js/modernizr.custom2.js'%}"></script>
 	</head>
 	<body style="background-color: #f5f5f5;">
-		<div class="container" style=" width: 100%;">
-			<ul id="gn-menu" class="gn-menu-main" style="z-index: 20;">
+		<div class="container" style=" width: 100%">
+			<ul id="gn-menu" class="gn-menu-main">
 				<li class="gn-trigger">
 					<a class="gn-icon gn-icon-menu"><span>Menu</span></a>
 					<nav class="gn-menu-wrapper">
@@ -58,8 +58,8 @@
 			</ul>
 		</div><!-- /container -->
 
-		<div>h
-		    <section id="portfolio" class="bg-light-gray" style="padding-top: 55px;">
+		<div>
+			<section id="portfolio" class="bg-light-gray" style="padding-top: 55px;">
 
 
 		    	<section class="section section--menu" id="Ceres">
@@ -73,87 +73,34 @@
 						</ul>
 					</nav>
 				</section>
-		        
-			    <div class="container" style="margin: 0 auto;">
 
-			        <div class="row">
-
-			            <!-- Blog Post Content Column -->
-			            <div  class="col-lg-8" style="background-color:#f5f5f5">
-
-			                <!-- Blog Post -->
-			                {% for i in post %}
-			                <!-- Title -->
-			                <h1>{{i.title}}</h1>
-
-			                <!-- Author -->
-			                <p class="lead">
-			                    by <font color="black" size="5em">{{i.by}}</font>
-			                </p>
-
-			                <hr>
-
-			                <!-- Date/Time -->
-			                <p><span class="glyphicon glyphicon-time"></span> Posted on {{i.date}}</p>
-
-			                <hr>
-
-			                <!-- Preview Image -->
-			                <img class="img-responsive" src="http://placehold.it/900x300" alt="">
-
-			                <hr>
-
-			                <!-- Post Content -->
-			                <p class="lead">{{i.content}}</p>
-
-			                <hr>
-			                {%endfor%}
-			                
-
-			                <hr>
-
-			                <!-- Posted Comments -->
-
-			                <!-- Comment -->
-			                <!-- <div class="media">
-			                    <a class="pull-left" href="#">
-			                        <img class="media-object" src="http://placehold.it/64x64" alt="">
-			                    </a>
-			                    <div class="media-body">
-			                        <h4 class="media-heading">{{i.title}}
-			                            <small>{{i.date}}</small>
-			                        </h4>
-			                        {{i.content}}
-			                    </div>
-			                </div> -->
-
-			            </div>
-			            
-			            <!-- Blog Sidebar Widgets Column -->
-			            <div class="col-md-4">
-			                
-			                <div class="well">
-			                    <h4>Notifications</h4>
-			                    {%for i in not%}
-			                    <p>{{i.content}}</p>
-			                    <h5>On{{i.date}}</h5>
-			                    <br>
-			                    {%endfor%}
-			                </div>
-			                
-			            </div>
-			            
-
-			        </div>
-			        <!-- /.row -->
-
-			        <hr>
-
-			        <!-- Footer -->
-
-			    </div>
-			    <!-- /.container -->
-
+		        <div class="container">
+		            <div class="row">
+		                <div class="col-lg-12 text-center">
+		                    <h2 class="section-heading">Members</h2>
+		                </div>
+		            </div>
+		            
+		            <div class="row" >
+		            	{% for i in members %}
+		                <div class="col-md-4 col-sm-6 portfolio-item">
+		                    <a href="/courses/{{ i.id }}/" class="portfolio-link" data-toggle="modal">
+		                        <div class="portfolio-hover">
+		                            <div class="portfolio-hover-content">
+		                                <i class="fa fa-plus fa-3x"></i>
+		                            </div>
+		                        </div>
+		                        <img src="{% static 'courses/static/img/courses/'%}{{i.img}}" class="img-responsive" alt="">
+		                    </a>
+		                    <div class="portfolio-caption">
+		                        <h4>{{i.frist_name}} {{i.last_name}}</h4>
+		                        <p class="text-muted">{{i.email}}</p>
+		                    </div>
+		                </div>
+		               	{% endfor %}
+		                
+		            </div>
+		        </div>
 		    </section>
 		</div>
 
@@ -188,44 +135,5 @@
 		<script>
 			new gnMenu( document.getElementById( 'gn-menu' ) );
 		</script>
-		<script src="{% static 'courses/static/js/classie.js'%}"></script>
-		<script src="{% static 'courses/static/js/clipboard.min.js'%}"></script>
-		<script>
-		(function() {
-			[].slice.call(document.querySelectorAll('.menu')).forEach(function(menu) {
-				var menuItems = menu.querySelectorAll('.menu__link'),
-					setCurrent = function(ev) {
-						ev.preventDefault();
-
-						var item = ev.target.parentNode; // li
-
-						// return if already current
-						if (classie.has(item, 'menu__item--current')) {
-							return false;
-						}
-						// remove current
-						classie.remove(menu.querySelector('.menu__item--current'), 'menu__item--current');
-						// set current
-						classie.add(item, 'menu__item--current');
-						 window.open(this.href,"_self")
-					};
-
-				[].slice.call(menuItems).forEach(function(el) {
-					el.addEventListener('click', setCurrent);
-				});
-			});
-
-			[].slice.call(document.querySelectorAll('.link-copy')).forEach(function(link) {
-				link.setAttribute('data-clipboard-text', location.protocol + '//' + location.host + location.pathname + '#' + link.parentNode.id);
-				new Clipboard(link);
-				link.addEventListener('click', function() {
-					classie.add(link, 'link-copy--animate');
-					setTimeout(function() {
-						classie.remove(link, 'link-copy--animate');
-					}, 300);
-				});
-			});
-		})(window);
-				</script>
 	</body>
 </html>

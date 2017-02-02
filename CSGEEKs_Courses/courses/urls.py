@@ -14,6 +14,8 @@ urlpatterns = [
     url(r'^(?P<course_id>[0-9]+)/courseware/(?P<video_id>[0-9]+)/$', views.getCourseware, name="ware"),
     url(r'^(?P<course_id>[0-9]+)/assignments/(?P<agn_id>[0-9]+)/$', views.getCourseAssig, name="agn"),
     url(r'^(?P<course_id>[0-9]+)/courseware/(?P<agn_id>[0-9]+)/upload/$', views.uploadFile, name="upload"),
+    url(r'^(?P<course_id>[0-9]+)/members/$', views.getCourseMembers, name="mem"),
+
     url(r'^dashboard/$', views.getDashboard, name="dashboard"),
 
 ]

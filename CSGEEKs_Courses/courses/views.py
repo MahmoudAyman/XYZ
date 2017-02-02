@@ -42,8 +42,10 @@ def getCourseAssig (request,course_id,agn_id):
 
 	return render(request, "courses/assignments.html",context)
 
-def getCourseMembers (request,id):
-	pass
+def getCourseMembers (request,course_id):
+	students=Course.objects.get(pk=course_id).members.all()
+	context={'members':students, 'cid':course_id}
+	return render(request, "courses/members.html",context)
 
 def checkAuth (request):
 	try:
