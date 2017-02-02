@@ -65,7 +65,7 @@
 					<nav class="menu menu--ceres">
 						<ul class="menu__list">
 							<li class="menu__item menu__item--current"><a href="#" class="menu__link" style="pointer-events: auto;">About</a></li>
-							<li class="menu__item"><a href="./courseware/1/"  style="pointer-events: auto;">Courseware</a></li>
+							<li class="menu__item"><a href="./courseware/1/" class="menu__link" style="pointer-events: auto;">Courseware</a></li>
 							<li class="menu__item"><a href="https://www.google.com" class="menu__link" style="pointer-events: auto;">Assignments</a></li>
 							<li class="menu__item"><a href="#" class="menu__link" style="pointer-events: auto;">Members</a></li>
 						</ul>
@@ -205,6 +205,7 @@
 						classie.remove(menu.querySelector('.menu__item--current'), 'menu__item--current');
 						// set current
 						classie.add(item, 'menu__item--current');
+						 window.open(this.href,"_self")
 					};
 
 				[].slice.call(menuItems).forEach(function(el) {
@@ -223,6 +224,6 @@
 				});
 			});
 		})(window);
-		</script>
+				</script>
 	</body>
 </html>

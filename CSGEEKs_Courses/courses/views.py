@@ -4,6 +4,8 @@ from courses.models import *
 from django.shortcuts import render
 from django.template import loader
 from django.urls import reverse
+import os 
+from PIL import Image
 
 
 # Create your views here.
@@ -91,6 +93,12 @@ def signUp(request):
 		mem = Member.objects.create(first_name=fname, last_name=lname, email=mail, pwd=password, logged_in=True,)
 		mem.img=(u_img)
 		mem.save()
+		size = 64,64
+		file ,ext  = os.path.splitext(mem.img.path)
+		im = Image.open(mem.img.path)
+		im.thumbnail(size,Image.ANTIALIAS)
+		im.save(file + "-thumbnail"+ext)
+
 		return HttpResponseRedirect(reverse('courses:index'))
 		
 

@@ -206,6 +206,7 @@
 			[].slice.call(document.querySelectorAll('.menu')).forEach(function(menu) {
 				var menuItems = menu.querySelectorAll('.menu__link'),
 					setCurrent = function(ev) {
+						// this is the function executed when we click on the a tag 
 						ev.preventDefault();
 
 						var item = ev.target.parentNode; // li
@@ -218,10 +219,20 @@
 						classie.remove(menu.querySelector('.menu__item--current'), 'menu__item--current');
 						// set current
 						classie.add(item, 'menu__item--current');
+						/* 
+						 * we need to add command to open new link according to it's own href
+						 * thats why we use this.href , and we use "_self" to make it load
+						 * in the same page
+						 */
+						window.open(this.href,"_self")
 					};
 
 				[].slice.call(menuItems).forEach(function(el) {
-					el.addEventListener('click', setCurrent);
+					/* this function control what happens when u click on the a tag with menu__link class it execute the set current function which is written above 
+					*/el.addEventListener('click', setCurrent);
+
+
+
 				});
 			});
 

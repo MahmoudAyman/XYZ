@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-
+import PIL
 from django.db import models
 from django.forms import ModelForm
 import os
@@ -39,6 +39,7 @@ class Member(models.Model):
 
     def __str__ (self):
         return self.last_name
+
 
     
 
