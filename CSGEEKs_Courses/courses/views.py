@@ -92,7 +92,7 @@ def signUp(request):
 		mem.img=(u_img)
 		mem.save()
 		return HttpResponseRedirect(reverse('courses:index'))
-		#need to login
+		
 
 def postComment(request, course_id, video_id):
 	c=Course.objects.get(pk=course_id)
