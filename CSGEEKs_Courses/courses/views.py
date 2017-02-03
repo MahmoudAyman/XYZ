@@ -11,8 +11,14 @@ from PIL import Image
 # Create your views here.
 def index (request):
 	li = Course.objects.all()
-	context={'courses':li}
+	try:
+		request.session['member_id']
+	except KeyError:
+		log=False
+	else:
+		log=True 
 
+	context={'courses':li, 'log':log}
 	return render(request, "courses/courses.html", context)
 
 def getCourseAbout (request, course_id):
@@ -102,6 +108,8 @@ def signUp(request):
 		return render(request, "courses/form.html", context)
 	else:
 		mem = Member.objects.create(first_name=fname, last_name=lname, email=mail, pwd=password, logged_in=True,)
+		request.session['member_id'] = mem.id
+		request.session.set_expiry(0)
 		mem.img=(u_img)
 		mem.save()
 		size = 64,64

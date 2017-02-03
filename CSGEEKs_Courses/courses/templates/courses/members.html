@@ -66,10 +66,10 @@
 					<span class="link-copy"></span>
 					<nav class="menu menu--ceres">
 						<ul class="menu__list">
-							<li class="menu__item menu__item--current"><a href="{% url 'courses:about' cid%}" class="menu__link"">About</a></li>
-							<li class="menu__item"><a href="./courseware/1/" class="menu__link" >Courseware</a></li>
-							<li class="menu__item"><a href="{% url 'courses:agn' cid 1%}" class="menu__link" >Assignments</a></li>
-							<li class="menu__item"><a href="{% url 'courses:mem' cid %}" class="menu__link">Members</a></li>
+							<li class="menu__item "><a href="{% url 'courses:about' cid%}" class="menu__link"">About</a></li>
+							<li class="menu__item "><a href=".{% url 'courses:ware' cid 1%}" class="menu__link" >Courseware</a></li>
+							<li class="menu__item "><a href="{% url 'courses:agn' cid 1%}" class="menu__link" >Assignments</a></li>
+							<li class="menu__item menu__item--current"><a href="{% url 'courses:mem' cid %}" class="menu__link">Members</a></li>
 						</ul>
 					</nav>
 				</section>
@@ -122,7 +122,7 @@
 	                </div>
 	                <div class="col-md-4">
 	                    <ul class="list-inline quicklinks">
-	                        <li><a href="#">CS GEEKS</a>
+	                        <li><a href="#"><img src="{% static 'courses/static/img/logo.png'%}" style="height: 60px; width: 120px;">  </a>
 	                        </li>
 	                    </ul>
 	                </div>
