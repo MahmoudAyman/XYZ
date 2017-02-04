@@ -18,8 +18,9 @@ def index (request):
 		context={'courses':li, 'log':log}
 	else:
 		m = Member.objects.get(pk=request.session['member_id'])
-		context={'courses':li, 'log':log, 'member':m}
 		log=True 
+		context={'courses':li, 'log':log, 'member':m}
+		
 
 	
 	return render(request, "courses/courses.html", context)
