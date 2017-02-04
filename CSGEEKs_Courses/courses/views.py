@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.template import loader
 from django.urls import reverse
 import os 
-from PIL import Image, ImageOps, ImageDraw
+from PIL import Image
 
 
 # Create your views here.
@@ -15,14 +15,10 @@ def index (request):
 		request.session['member_id']
 	except KeyError:
 		log=False
-		context={'courses':li, 'log':log}
 	else:
-		m = Member.objects.get(pk=request.session['member_id'])
 		log=True 
-		context={'courses':li, 'log':log, 'member':m}
-		
 
-	
+	context={'courses':li, 'log':log}
 	return render(request, "courses/courses.html", context)
 
 def getCourseAbout (request, course_id):
@@ -116,15 +112,12 @@ def signUp(request):
 		request.session.set_expiry(0)
 		mem.img=(u_img)
 		mem.save()
+		size = 64,64
 		file ,ext  = os.path.splitext(mem.img.path)
-		size = (60,60)
-		mask = Image.new('L', size, 0)
-		draw = ImageDraw.Draw(mask) 
-		draw.ellipse((0, 0) + size, fill=255)
 		im = Image.open(mem.img.path)
-		output = ImageOps.fit(im, mask.size, centering=(0.5, 0.5))
-		output.putalpha(mask)
-		output.save(file + "-thumbnail"+".png")
+		im.thumbnail(size,Image.ANTIALIAS)
+		im.save(file + "-thumbnail"+ext)
+
 		return HttpResponseRedirect(reverse('courses:index'))
 		
 
