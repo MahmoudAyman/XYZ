@@ -15,11 +15,13 @@ def index (request):
 		request.session['member_id']
 	except KeyError:
 		log=False
+		context={'courses':li, 'log':log}
 	else:
 		m = Member.objects.get(pk=request.session['member_id'])
+		context={'courses':li, 'log':log, 'member':m}
 		log=True 
 
-	context={'courses':li, 'log':log, 'member':m}
+	
 	return render(request, "courses/courses.html", context)
 
 def getCourseAbout (request, course_id):
