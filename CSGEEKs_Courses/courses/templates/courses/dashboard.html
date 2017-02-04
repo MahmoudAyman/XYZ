@@ -53,7 +53,7 @@
 				</li>
 				<li><a href="{% url 'courses:index'%}">Courses</a></li>
 				<li><a href="{% url 'home'%}">XYZ</a></li>
-				<li><img src="{{MEDIA_URL}}upload/{{member.id}}-thum.png"></l>
+				<li><div onclick="dod()"> <img class="img-responsive" src="{{MEDIA_URL}}upload/{{member.id}}-thumbnail.png"><b>{{member.first_name}} {{member.last_name}}</b></div></li>
 			</ul>
 			<div>
 		    <section id="portfolio" class="bg-light-gray" >

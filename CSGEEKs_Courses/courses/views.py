@@ -28,33 +28,39 @@ def index (request):
 def getCourseAbout (request, course_id):
 	data =checkAuth(request)
 	if(data!=False):
+		m = Member.objects.get(pk=request.session['member_id'])
 		name = Course.objects.get(pk=course_id).title
 		Posts=Course.objects.get(pk=course_id).post_set.all()
 		Notis=Course.objects.get(pk=course_id).notification_set.all()
+
 		# coms=Course.objects.get(pk=course_id).comment_set.all()
-		context={'post':Posts, 'not':Notis,'cid':course_id}
+		context={'post':Posts, 'not':Notis,'cid':course_id ,'member':m}
 		return render(request, "courses/about.html",context)
 	else:
 		return render(request, 'courses/form.html')
 
 def getCourseware(request,course_id,video_id):
+	m = Member.objects.get(pk=request.session['member_id'])
 	videos=Course.objects.get(pk=course_id).video_set.all()
 	current=Video.objects.get(pk=video_id)
 	coms=Video.objects.get(pk=video_id).comment_set.all()
-	context={'videos':videos, 'current':current, 'cid':course_id, 'vid':current, 'coms':coms}
+	context={'videos':videos, 'current':current, 'cid':course_id, 'vid':current, 'coms':coms , 'member':m}
 
 	return render(request, "courses/courseware.html",context)
 
 def getCourseAssig (request,course_id,agn_id):
 	assigns=Course.objects.get(pk=course_id).assignment_set.all()
 	current=Assignment.objects.get(pk=agn_id)
-	context={'assigns':assigns, 'current':current, 'cid':course_id, 'aid':agn_id}
+	m = Member.objects.get(pk=request.session['member_id'])
+	context={'assigns':assigns, 'current':current, 'cid':course_id, 'aid':agn_id,'member':m}
 
 	return render(request, "courses/assignments.html",context)
 
 def getCourseMembers (request,course_id):
 	students=Course.objects.get(pk=course_id).members.all()
-	context={'members':students, 'cid':course_id}
+	m = Member.objects.get(pk=request.session['member_id'])
+	context={'members':students, 'cid':course_id,'member':m}
+
 	return render(request, "courses/members.html",context)
 
 def checkAuth (request):
