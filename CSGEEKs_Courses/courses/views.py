@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.template import loader
 from django.urls import reverse
 import os 
-from PIL import Image
+from PIL import Image, ImageOps, ImageDraw
 
 
 # Create your views here.
@@ -116,12 +116,15 @@ def signUp(request):
 		request.session.set_expiry(0)
 		mem.img=(u_img)
 		mem.save()
-		size = 64,64
 		file ,ext  = os.path.splitext(mem.img.path)
+		size = (60,60)
+		mask = Image.new('L', size, 0)
+		draw = ImageDraw.Draw(mask) 
+		draw.ellipse((0, 0) + size, fill=255)
 		im = Image.open(mem.img.path)
-		im.thumbnail(size,Image.ANTIALIAS)
-		im.save(file + "-thumbnail"+ext)
-
+		output = ImageOps.fit(im, mask.size, centering=(0.5, 0.5))
+		output.putalpha(mask)
+		output.save(file + "-thumbnail"+".png")
 		return HttpResponseRedirect(reverse('courses:index'))
 		
 
