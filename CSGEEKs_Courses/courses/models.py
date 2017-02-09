@@ -20,10 +20,10 @@ class UploadToPathAndRename(object):
         ext = filename.split('.')[-1]
         # get filename
         if instance.pk:
-            filename = '{}.{}'.format(instance.pk, ext)
+            filename = '{}.{}'.format(instance.pk, 'png')
         else:
             # set filename as random string
-            filename = '{}.{}'.format(uuid4().hex, ext)
+            filename = '{}.{}'.format(uuid4().hex, 'png')
         # return the whole path to the file
         return os.path.join(self.sub_path, filename)
 

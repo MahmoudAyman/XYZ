@@ -63,7 +63,7 @@
 				</li>
 				<li><a href="{% url 'courses:index'%}">Courses</a></li>
 				<li><a href="{% url 'home'%}">XYZ</a></li>
-				<li><div onclick="dod()"> <img class="img-responsive" src="{{MEDIA_URL}}upload/{{member.id}}-thumbnail.png"><b>{{member.first_name}} {{member.last_name}}</b></div></li>
+				<li><div onclick="dod()"> <img style ="height: 60px;width: 60px;"class= 'img-circle ' src="{{MEDIA_URL}}upload/{{member.id}}.png"><b>{{member.first_name}} {{member.last_name}}</b></div></li>
 			</ul>
 			<header style=" background-color: #f5f5f5; background-image: url({% static 'courses/static/img/s.jpg'%}); background-repeat: no-repeat; background-position: center;">
 				<h1>Start learning, now! </h1>	

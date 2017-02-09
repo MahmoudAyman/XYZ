@@ -13,13 +13,14 @@ def index (request):
 	li = Course.objects.all()
 	try:
 		request.session['member_id']
-	except KeyError:
-		log=False
-		context={'courses':li, 'log':log}
-	else:
 		m = Member.objects.get(pk=request.session['member_id'])
 		log=True 
 		context={'courses':li, 'log':log, 'member':m}
+	except :
+		log=False
+		context={'courses':li, 'log':log}
+
+
 		
 
 	
